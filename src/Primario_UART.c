@@ -73,8 +73,8 @@ bool_t UARTInit(uart_prim_t * uprim,bool_t code,uartMap_t Uart,tick_t timeout){
 	uprim->waitTextState = UART_RECEIVE_STRING_CONFIG;
 	uprim->waitText.state = UART_RECEIVE_STRING_CONFIG;
     uprim->waitText.stringSize = sizeof(uprim->waitText.string); // Sets the size of the code we are waiting
-    window=(int)timeout/(CYCLES/NCodes);			// lapse of time needed to accomplish the # cycles established by the user
-    uprim->waitText.timeout = window;		// set the time for the waiting time of each code.
+    window=(int)(timeout/(CYCLES/NCodes));			// lapse of time needed to accomplish the # cycles established by the user
+    uprim->waitText.timeout = window;				// set the time for the waiting time of each code.
     return 1;
 }
 

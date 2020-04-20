@@ -29,20 +29,56 @@ extern "C" {
 
 /*=====[Prototypes (declarations) of public functions]=======================*/
 
-// Task initialization declaration
+/** It calls the method to initialize the environment needed for the Monitor
+ * System's MEF, it also includes the initialization of the test button.
+
+	@see Primario
+	@see AllUpdates
+**/
 void TaskInit( void* taskParmPtr );
 
-// Task Logic declaration
+/** It calls the method that contains the MEFs designed for the Monitor system,
+ * it still depends of the periodic call of the update method, to work properly.
+
+	@note It must be called after the initialization of both elements.
+	@see TaskInit
+	@see Primario
+**/
 void Primario( void* taskParmPtr );
 
-// Task Update declaration
+/** It calls the update function of all the MEFs involved, also updates the test
+ * button state.
+
+	@note It must be called after the initialization of both elements.
+	@see TaskInit
+**/
 void AllUpdates( void* taskParmPtr );
 
-// Notifying Task1 declaration
+/** It sends trough the UART PORT assigned, the current state of the Monitor system.
+
+	@note It does not affect the logic of the MEFs.
+**/
 void CurrentState( void* taskParmPtr );
 
-// Notifying Task2 declaration
+/** It sends trough the UART PORT assigned, the current test mode of the system
+ * selected for the Monitor system. To change the test mode you need to press
+ * the specified button in the task Test.
+
+	@note It does not affect the logic of the MEFs.
+	@see Test
+**/
 void CurrentTmode( void* taskParmPtr );
+
+/** It checks the last state of the test button and executes the corresponding
+ * action based on the Test mode active. The test mode 1 turns on the led if we are
+ * in a state different from PRESTATE. Test mode 2 turns on the led if any UART Code
+ * was received (UARTFLAG).
+
+	@note It does not affect the logic of the MEFs. It does not initialize the
+	test button.
+	@see TaskInit
+**/
+void Test( void* taskParmPtr );
 
 /*=====[Prototypes (declarations) of public interrupt functions]=============*/
 

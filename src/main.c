@@ -51,6 +51,11 @@ int main( void )
                       3,			// Execution offset in ticks.
                    5000				// Periodicity of task execution in ticks.
                     );
+   schedulerAddTask( Test, // Function that notifies the user of the current testing mode.
+                      0,			// Parameter passed.
+                      4,			// Execution offset in ticks.
+                      50				// Periodicity of task execution in ticks.
+                    );
 
    // Initialize task scheduler each 1ms.
    schedulerStart( 1 );

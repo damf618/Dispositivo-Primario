@@ -15,8 +15,8 @@
 #define NORMALMSG "no456"
 
 #define NCodes 3 // number of codes to be monitored (ALARMMSG, FAILMSG and NORMALMSG)
-#define CYCLES 9 // should be a multiple of NCodes, it represents how many times
-				 // it will check the different UART Modes in the timeout time
+#define CYCLES 15// should be a multiple of NCodes, it represents how many times
+				 // it will check for each of the different UART Modes in the timeout time
 
 typedef enum{ FAILURES, ALARMS, NORMALS} uart_mode_t;	// What are we monitoring Fail codes
 												// or Alarm codes.

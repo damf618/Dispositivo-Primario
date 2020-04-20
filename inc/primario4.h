@@ -16,6 +16,9 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <sapi.h>
+#include "antirebote.h"
+#include "Primario_LEDS.h"
+#include "Primario_UART.h"
 
 /*=====[C++ - begin]=========================================================*/
 
@@ -30,13 +33,21 @@ extern "C" {
 /*=====[Definitions of public data types]====================================*/
 
 // Possible states for the MEFs
-typedef enum{ NORMAL , ALARM, PRESTATE, FAIL} dprim_state_t;
+typedef enum{ NORMAL , ALARM, FAIL, PRENORMAL, PREALARM, PREFAIL} dprim_state_t;
 
 // Structure with the different data types to generate an independent Monitor
 typedef struct{
 	tick_t timeout;
 	delay_t delay;
 	dprim_state_t state;
+	antirebote_t boton1;	//Buttons with  debounce pattern
+	antirebote_t boton2;
+	antirebote_t boton3;
+	uart_prim_t uart1;		//Uart interface
+	int8_t count;			//Count of Cycles.
+	bool_t UARTFLAG;		//Flag for UART interaction 1 ON, 0 OFF
+	bool_t TEST_MODE;		//Flag for defining TEST mode
+
 }dprimario_t;
 
 
@@ -62,28 +73,12 @@ bool_t primInit(dprimario_t * pPrimario);
 bool_t primControl(dprimario_t * pPrimario);
 
 /** It updates the state of all the existent MEFs and also checks the TESTMODE.
-
+	@param pPrimario element of type *dprimario_t* with the Monitor data types needed
 	@note Must be called after primInit.
 	@see primInit.
 
 **/
-void primUpdates();
-
-
-/** It sends trough the UART PORT assigned, the current state of the Monitor system.
-
-	@param pPrimario element of type *dprimario_t* with the Monitor data types needed
-	@note It does not affect the logic of the MEFs.
-**/
-void primState(dprimario_t * prim);
-
-
-/** It sends trough the UART PORT assigned, the current test mode selectec of the Monitor system.
-
-	@param pPrimario element of type *dprimario_t* with the Monitor data types needed
-	@note It does not affect the logic of the MEFs.
-**/
-void primTmode(dprimario_t * prim);
+void primUpdates(dprimario_t * pPrimario);
 
 /*=====[Prototypes (declarations) of public interrupt functions]=============*/
 
