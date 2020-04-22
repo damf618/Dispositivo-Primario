@@ -57,7 +57,7 @@ void UARTChange (uart_prim_t * uprim,bool_t code){
 // window
 bool_t UARTInit(uart_prim_t * uprim,bool_t code,uartMap_t Uart,tick_t timeout){
 	uprim->Uart =Uart;
-	uartConfig( uprim->Uart , 115200 );		//UART Port and Baud Rate Configuration
+	uartConfig( uprim->Uart , BAUD_RATE );		//UART Port and Baud Rate Configuration
 	if(code==ALARMS){						//Info in UARTChange
 		uprim->waitText.string = ALARMMSG;
 		uprim->mode=ALARMS;

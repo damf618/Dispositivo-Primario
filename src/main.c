@@ -30,27 +30,31 @@ int main( void )
    // Initialize scheduler
    schedulerInit();
 
-   // Se agrega la tarea tarea1 al planificador
+   // Add Task1 to the Scheduler
    schedulerAddTask( Primario, // Function that implements the Logic of the device.
               	  	  0,            // Parameter passed.
                       1,            // Execution offset in ticks.
                      10				// Periodicity of task execution in ticks.
                    );
+   // Add Task2 to the Scheduler
    schedulerAddTask( AllUpdates, // Function that implements all the updates.
                  	  0,			// Parameter passed.
                       0,			// Execution offset in ticks.
                       5				// Periodicity of task execution in ticks.
                     );
+   // Add Task3 to the Scheduler
    schedulerAddTask( CurrentState, // Function that notifies the user of the current state.
                   	  0,			// Parameter passed.
                       2,			// Execution offset in ticks.
                    1000				// Periodicity of task execution in ticks.
                     );
+   // Add Task4 to the Scheduler
    schedulerAddTask( CurrentTmode, // Function that notifies the user of the current testing mode.
                   	  0,			// Parameter passed.
                       3,			// Execution offset in ticks.
                    5000				// Periodicity of task execution in ticks.
                     );
+   // Add Task5 to the Scheduler
    schedulerAddTask( Test, // Function that notifies the user of the current testing mode.
                       0,			// Parameter passed.
                       4,			// Execution offset in ticks.

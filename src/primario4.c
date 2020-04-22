@@ -59,6 +59,8 @@ static void ResetChange(dprimario_t * prim){
 	prim->UARTFLAG=0;								 //Reset the UART flag
 }
 
+// To verify if we are stuck in the middle of a transition (PRE-STATE) or in a
+// waiting in a principal state (ALARM, NORMAL ,FAIL).
 static void PRESTUCK(dprimario_t * prim){
 	if(prim->UARTFLAG==1){						//I got here from an UART request?
 		if((prim->state==PREALARM)||
@@ -66,8 +68,8 @@ static void PRESTUCK(dprimario_t * prim){
 			(prim->state==PRENORMAL)){			//Go to Fail state
 			prim->state = FAIL;
 			ResetChange(prim);
-			prim->UARTFLAG=1;
-		}
+			prim->UARTFLAG=1;					//Set the UART Flag interaction
+		}										//the reset statement clears UARTFLAG
 	}
 	else{
 		if((prim->state==PREALARM)||
